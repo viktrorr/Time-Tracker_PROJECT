@@ -1,41 +1,45 @@
 -- CreateTable
 CREATE TABLE "Project" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "client" TEXT,
     "colorHex" TEXT NOT NULL DEFAULT '#64748B',
     "archived" BOOLEAN NOT NULL DEFAULT false,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "TaskName" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "normalized" TEXT NOT NULL,
     "usageCount" INTEGER NOT NULL DEFAULT 0,
-    "lastUsedAt" DATETIME,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "lastUsedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "TaskName_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "TimeEntry" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "taskName" TEXT NOT NULL,
     "taskNameNorm" TEXT NOT NULL,
     "taskNameId" TEXT,
     "projectId" TEXT,
-    "startedAt" DATETIME NOT NULL,
-    "endedAt" DATETIME,
+    "startedAt" TIMESTAMP(3) NOT NULL,
+    "endedAt" TIMESTAMP(3),
     "durationMinutes" INTEGER NOT NULL DEFAULT 0,
     "isRunning" BOOLEAN NOT NULL DEFAULT true,
-    "entryDate" DATETIME NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "TimeEntry_taskNameId_fkey" FOREIGN KEY ("taskNameId") REFERENCES "TaskName" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT "TimeEntry_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    "entryDate" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "TimeEntry_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -61,3 +65,9 @@ CREATE INDEX "TimeEntry_projectId_entryDate_idx" ON "TimeEntry"("projectId", "en
 
 -- CreateIndex
 CREATE INDEX "TimeEntry_taskNameNorm_entryDate_idx" ON "TimeEntry"("taskNameNorm", "entryDate");
+
+-- AddForeignKey
+ALTER TABLE "TimeEntry" ADD CONSTRAINT "TimeEntry_taskNameId_fkey" FOREIGN KEY ("taskNameId") REFERENCES "TaskName"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TimeEntry" ADD CONSTRAINT "TimeEntry_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE SET NULL ON UPDATE CASCADE;
