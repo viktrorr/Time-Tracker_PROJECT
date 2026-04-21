@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id        String      @id @default(cuid())
+  name      String
+  client    String?
+  colorHex  String      @default("#64748B")
+  archived  Boolean     @default(false)
+  entries   TimeEntry[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@unique([name])
+  @@index([archived])
+}
+
+model TaskName {
+  id          String      @id @default(cuid())
+  name        String
+  normalized  String      @unique
+  usageCount  Int         @default(0)
+  lastUsedAt  DateTime?
+  entries     TimeEntry[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([usageCount, lastUsedAt])
+}
+
+model TimeEntry {
+  id              String    @id @default(cuid())
+  taskName        String
+  taskNameNorm    String
+  taskNameId      String?
+  taskNameRef     TaskName? @relation(fields: [taskNameId], references: [id], onDelete: SetNull)
+  projectId       String?
+  project         Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  startedAt       DateTime
+  endedAt         DateTime?
+  durationMinutes Int       @default(0)
+  isRunning       Boolean   @default(true)
+  entryDate       DateTime
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([isRunning, startedAt])
+  @@index([entryDate])
+  @@index([projectId, entryDate])
+  @@index([taskNameNorm, entryDate])
+}
