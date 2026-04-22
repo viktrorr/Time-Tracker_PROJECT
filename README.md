@@ -1,3 +1,5 @@
+Used: CLINE + GPT 5.3 codex
+
 # Time Tracker
 
 Production-oriented full-stack Time Tracker test task built with **Next.js + TypeScript + Prisma**.
