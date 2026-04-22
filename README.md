@@ -2,8 +2,8 @@
 
 Production-oriented full-stack Time Tracker test task built with **Next.js + TypeScript + Prisma**.
 
-> Live demo: **[TODO: add deploy URL]**  
-> Repository: **[TODO: add repository URL]**
+> Live demo: **https://time-tracker-project-lguy.vercel.app/**  
+> Repository: **https://github.com/viktrorr/Time-Tracker_PROJECT**
 
 ---
 
@@ -236,13 +236,13 @@ Example deployment flow:
 
 This project was developed through an **AI-assisted workflow** with iterative implementation and review.
 
-- Prompt log artifacts: **[TODO: add path, e.g. `docs/prompt-log.md` or `artifacts/prompt-log/`]**
+- Prompt log artifacts: **https://github.com/viktrorr/Time-Tracker_PROJECT/blob/master/docs/prompt-log.md**
 - Reproducibility note: feature work was delivered in small, reviewable increments.
 
 ---
 
 ## 13) Evaluation quick links (placeholders)
 
-- Live demo: **[TODO: add URL]**
-- Source repository: **[TODO: add URL]**
-- Prompt log: **[TODO: add artifact path/URL]**
+- Live demo: **https://time-tracker-project-lguy.vercel.app/**
+- Source repository: **https://github.com/viktrorr/Time-Tracker_PROJECT**
+- Prompt log: **https://github.com/viktrorr/Time-Tracker_PROJECT/blob/master/docs/prompt-log.md**
