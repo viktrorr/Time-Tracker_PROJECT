@@ -1,4 +1,4 @@
-Used: CLINE + GPT 5.3 codex
+(test task in Artic-Web) Used: CLINE + GPT 5.3 codex
 
 # Time Tracker
 
